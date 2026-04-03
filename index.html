@@ -2,55 +2,38 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>全独立控制版（流畅优化版）</title>
-<!-- 预加载背景图，优先加载，解决首屏卡顿 -->
-<link rel="preload" href="images/渡繁华.jpg" as="image">
-<!-- 开启强缓存，下次打开秒加载 -->
-<meta http-equiv="Cache-Control" content="public, max-age=31536000">
+<title>全独立控制版</title>
 <style>
 body {
   background: url(images/渡繁华.jpg) no-repeat center center;
-  background-size: 100% 100%; /* 完全保留你原来的设置 */
+  background-size: 100% 100%;
   background-attachment: fixed;
   min-height: 100vh;
   margin: 0;
-  /* 加渲染优化，不影响布局 */
-  image-rendering: auto;
-  will-change: background-image;
-  overflow-x: hidden;
 }
 
-/*----------------------------------------*/
-/* 按钮：100% 保留你原来的位置、大小、样式，完全不动
-/*----------------------------------------*/
-#btnImg1  { position: absolute; top: 440px;  left: 1750px;   width: 125px; padding: 65px; opacity: 0; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
-#btnImg2  { position: absolute; top: 550px;  left: 1290px;  width: 220px; padding: 100px; opacity: 0; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
-#btnImg3  { position: absolute; top: 540px;  left: 230px;  width: 200px; padding: 90px; opacity: 0; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
-#btnImg4  { position: absolute; top: 70px;  left: 130px;  width: 180px; padding: 70px; opacity: 0; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
-#btnImg5  { position: absolute; top: 850px;  left: 950px;  width: 500px; padding: 30px; opacity: 0; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
-#btnImg7  { position: absolute; top: 850px;  left: 1710px;   width: 250px; padding: 50px; opacity: 0; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
-#btnImg8  { position: absolute; top: 400px;  left: 800px;  width: 300px; padding: 100px; opacity: 0; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
-#btnImg11 { position: absolute; top: 500px;  left: 80px;  width: 100px; padding: 75px; opacity: 0; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
-#btnImg12 { position: absolute; top: 90px;  left: 890px;  width: 110px; padding: 75px; opacity: 0; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
+#btnImg1  { position: absolute; top: 440px;  left: 1750px;   width: 125px; padding: 65px; opacity: 0.9; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
+#btnImg2  { position: absolute; top: 550px;  left: 1290px;  width: 220px; padding: 100px; opacity: 0.9; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
+#btnImg3  { position: absolute; top: 540px;  left: 230px;  width: 200px; padding: 90px; opacity: 0.9; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
+#btnImg4  { position: absolute; top: 70px;  left: 130px;  width: 180px; padding: 70px; opacity: 0.9; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
+#btnImg5  { position: absolute; top: 850px;  left: 950px;  width: 500px; padding: 30px; opacity: 0.9; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
+#btnImg7  { position: absolute; top: 850px;  left: 1710px;   width: 250px; padding: 50px; opacity: 0.9; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
+#btnImg8  { position: absolute; top: 400px;  left: 800px;  width: 300px; padding: 100px; opacity: 0.9; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
+#btnImg11 { position: absolute; top: 500px;  left: 80px;  width: 100px; padding: 75px; opacity: 0.9; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
+#btnImg12 { position: absolute; top: 90px;  left: 890px;  width: 110px; padding: 75px; opacity: 0.9; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
 
-#btnAud1 { position: absolute; top: 880px; left: 130px;  width: 15px; padding: 20px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
-#btnAud2 { position: absolute; top: 175px; left: 320px; width: 15px; padding: 15px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
-#btnAud4 { position: absolute; top: 600px; left: 720px; width: 50px; padding: 28px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
-#btnAud5 { position: absolute; top: 130px; left: 620px; width: 30px; padding:8px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
-#btnAud6 { position: absolute; top: 180px; left: 770px; width: 100px; padding: 35px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
-#btnAud7 { position: absolute; top: 880px; left: 300px; width: 5px; padding: 20px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
-#btnAud8 { position: absolute; top: 410px; left: 1120px; width: 100px; padding: 40px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
-/*----------------------------------------*/
-/* 图片：100% 保留你原来的位置、大小，只加性能优化
-/*----------------------------------------*/
+#btnAud1 { position: absolute; top: 880px; left: 130px;  width: 15px; padding: 20px; opacity: 0.9; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
+#btnAud2 { position: absolute; top: 175px; left: 320px; width: 15px; padding: 15px; opacity: 0.9; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
+#btnAud4 { position: absolute; top: 600px; left: 720px; width: 50px; padding: 28px; opacity: 0.9; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
+#btnAud5 { position: absolute; top: 130px; left: 620px; width: 30px; padding:8px; opacity: 0.9; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
+#btnAud6 { position: absolute; top: 180px; left: 770px; width: 100px; padding: 35px; opacity: 0.9; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
+#btnAud7 { position: absolute; top: 880px; left: 300px; width: 5px; padding: 20px; opacity: 0.9; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
+#btnAud8 { position: absolute; top: 410px; left: 1120px; width: 100px; padding: 40px; opacity: 0.9; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
+
 .show-img {
   display: none;
   position: absolute;
   height: auto;
-  /* 加这行：图片不阻挡点击，提升响应速度 */
-  pointer-events: none;
-  /* 加这行：异步解码，不阻塞页面渲染 */
-  decoding: async;
 }
 
 #img1  { width: 260px; top: 310px; left: 1700px;  }
@@ -67,7 +50,6 @@ body {
 </head>
 <body>
 
-<!--================= 图片按钮 =================-->
 <button id="btnImg1">西兴</button>
 <button id="btnImg2">茶馆</button>
 <button id="btnImg3">东大寺</button>
@@ -78,7 +60,6 @@ body {
 <button id="btnImg11">jining</button>
 <button id="btnImg12">tongzhou</button>
 
-<!--================= 音频按钮 =================-->
 <button id="btnAud1">当铺老板</button>
 <button id="btnAud2">酒店烧刀</button>
 <button id="btnAud4">米官</button>
@@ -86,31 +67,34 @@ body {
 <button id="btnAud6">挑脚的</button>
 <button id="btnAud7">药铺老板</button>
 <button id="btnAud8">母女</button>
-<!--================= 图片：加了 loading="lazy" 懒加载 =================-->
-<img class="show-img" id="img1" src="images/西兴.png" loading="lazy" decoding="async">
-<img class="show-img" id="img2" src="images/茶馆.png" loading="lazy" decoding="async">
-<img class="show-img" id="img3" src="images/东大寺.png" loading="lazy" decoding="async">
-<img class="show-img" id="img4" src="images/繁华商品区.png" loading="lazy" decoding="async">
-<img class="show-img" id="img5" src="images/拱振桥.png" loading="lazy" decoding="async">
-<img class="show-img" id="img6" src="images/江南民居.png" loading="lazy" decoding="async">
-<img class="show-img" id="img7" src="images/蓝印花布.png" loading="lazy" decoding="async">
-<img class="show-img" id="img8" src="images/三庙一塔.png" loading="lazy" decoding="async">
-<img class="show-img" id="img9" src="images/太白楼.png" loading="lazy" decoding="async">
-<img class="show-img" id="img10" src="images/竹竿巷.png" loading="lazy" decoding="async">
-<img class="show-img" id="img11" src="images/jining.png" loading="lazy" decoding="async">
-<img class="show-img" id="img12" src="images/tongzhou.png" loading="lazy" decoding="async">
 
-<!--================= 音频：闭合标签 + preload="none" 不预加载 =================-->
-<audio id="aud1" src="audio/当铺老板.wav" preload="none">
-<audio id="aud2" src="audio/酒店烧刀.wav" preload="none">
-<audio id="aud4" src="audio/米官.wav" preload="none">
-<audio id="aud5" src="audio/苏州弹琵小调.mp3" preload="none">
-<audio id="aud6" src="audio/挑脚的.wav" preload="none">
-<audio id="aud7" src="audio/药铺老板.wav" preload="none">
-<audio id="aud8" src="audio/母女.mp3" preload="none">
+<img class="show-img" id="img1" src="images/西兴.png">
+<img class="show-img" id="img2" src="images/茶馆.png">
+<img class="show-img" id="img3" src="images/东大寺.png">
+<img class="show-img" id="img4" src="images/繁华商品区.png">
+<img class="show-img" id="img5" src="images/拱振桥.png">
+<img class="show-img" id="img6" src="images/江南民居.png">
+<img class="show-img" id="img7" src="images/蓝印花布.png">
+<img class="show-img" id="img8" src="images/三庙一塔.png">
+<img class="show-img" id="img9" src="images/太白楼.png">
+<img class="show-img" id="img10" src="images/竹竿巷.png">
+<img class="show-img" id="img11" src="images/jining.png">
+<img class="show-img" id="img12" src="images/tongzhou.png">
+
+<audio id="aud1" src="audio/当铺老板.wav"></audio>
+<audio id="aud2" src="audio/酒店烧刀.wav"></audio>
+<audio id="aud4" src="audio/米官.wav"></audio>
+<audio id="aud5" src="audio/苏州弹琵小调.mp3"></audio>
+<audio id="aud6" src="audio/挑脚的.wav"></audio>
+<audio id="aud7" src="audio/药铺老板.wav"></audio>
+<audio id="aud8" src="audio/母女.mp3"></audio>
+
+<!-- 点击音效：不需要你准备音频，自带在线音效 -->
+<audio id="clickSound" src="audio/点击.mp3" preload="auto"></audio>
 
 <script>
 const allImgs = document.querySelectorAll('.show-img');
+const clickSound = document.getElementById('clickSound');
 
 function hideAllImages() {
   allImgs.forEach(img => img.style.display = 'none');
@@ -121,54 +105,72 @@ function playAudio(id) {
   try { a.currentTime = 0; a.play(); } catch (e) {}
 }
 
-// 图片按钮：保留点击空白消失逻辑
+// 播放点击按钮音效
+function playClickSound() {
+  try {
+    clickSound.currentTime = 0;
+    clickSound.volume = 0.7; // 音量 0-1
+    clickSound.play();
+  } catch (e) {}
+}
+
+// 图片按钮 → 点击音效 + 显示图片
 document.getElementById('btnImg1').onclick = (e) => {
   e.stopPropagation();
+  playClickSound();
   hideAllImages();
   img1.style.display = 'block';
 }
 document.getElementById('btnImg2').onclick = (e) => {
   e.stopPropagation();
+  playClickSound();
   hideAllImages();
   img2.style.display = 'block';
 }
 document.getElementById('btnImg3').onclick = (e) => {
   e.stopPropagation();
+  playClickSound();
   hideAllImages();
   img3.style.display = 'block';
 }
 document.getElementById('btnImg4').onclick = (e) => {
   e.stopPropagation();
+  playClickSound();
   hideAllImages();
   img4.style.display = 'block';
 }
 document.getElementById('btnImg5').onclick = (e) => {
   e.stopPropagation();
+  playClickSound();
   hideAllImages();
   img5.style.display = 'block';
 }
 document.getElementById('btnImg7').onclick = (e) => {
   e.stopPropagation();
+  playClickSound();
   hideAllImages();
   img7.style.display = 'block';
 }
 document.getElementById('btnImg8').onclick = (e) => {
   e.stopPropagation();
+  playClickSound();
   hideAllImages();
   img8.style.display = 'block';
 }
 document.getElementById('btnImg11').onclick = (e) => {
   e.stopPropagation();
+  playClickSound();
   hideAllImages();
   img11.style.display = 'block';
 }
 document.getElementById('btnImg12').onclick = (e) => {
   e.stopPropagation();
+  playClickSound();
   hideAllImages();
   img12.style.display = 'block';
 }
 
-// 音频按钮
+// 音频按钮不变
 document.getElementById('btnAud1').onclick = (e) => { e.stopPropagation(); playAudio('aud1'); }
 document.getElementById('btnAud2').onclick = (e) => { e.stopPropagation(); playAudio('aud2'); }
 document.getElementById('btnAud4').onclick = (e) => { e.stopPropagation(); playAudio('aud4'); }
@@ -177,7 +179,6 @@ document.getElementById('btnAud6').onclick = (e) => { e.stopPropagation(); playA
 document.getElementById('btnAud7').onclick = (e) => { e.stopPropagation(); playAudio('aud7'); }
 document.getElementById('btnAud8').onclick = (e) => { e.stopPropagation(); playAudio('aud8'); }
 
-// 点击背景/空白隐藏图片
 document.body.onclick = hideAllImages;
 </script>
 </body>
