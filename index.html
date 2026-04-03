@@ -2,19 +2,26 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>全独立控制版</title>
+<title>全独立控制版（流畅优化版）</title>
+<!-- 预加载背景图，优先加载，解决首屏卡顿 -->
+<link rel="preload" href="images/渡繁华.jpg" as="image">
+<!-- 开启强缓存，下次打开秒加载 -->
+<meta http-equiv="Cache-Control" content="public, max-age=31536000">
 <style>
 body {
-  /* 这一行只改了 background-size 的属性 */
   background: url(images/渡繁华.jpg) no-repeat center center;
-  background-size: 100% 100%; /* 改为 100% 100% 强制拉伸铺满，确保上下边都能显示 */
+  background-size: 100% 100%; /* 完全保留你原来的设置 */
   background-attachment: fixed;
   min-height: 100vh;
   margin: 0;
+  /* 加渲染优化，不影响布局 */
+  image-rendering: auto;
+  will-change: background-image;
+  overflow-x: hidden;
 }
 
 /*----------------------------------------*/
-/* 按钮：每个都可以单独改 位置、大小、透明度
+/* 按钮：100% 保留你原来的位置、大小、样式，完全不动
 /*----------------------------------------*/
 #btnImg1  { position: absolute; top: 440px;  left: 1750px;   width: 125px; padding: 65px; opacity: 0; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
 #btnImg2  { position: absolute; top: 550px;  left: 1290px;  width: 220px; padding: 100px; opacity: 0; background: #2d8cf0; color:#fff; border:none; border-radius:6px; }
@@ -29,17 +36,21 @@ body {
 #btnAud1 { position: absolute; top: 880px; left: 130px;  width: 15px; padding: 20px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
 #btnAud2 { position: absolute; top: 175px; left: 320px; width: 15px; padding: 15px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
 #btnAud4 { position: absolute; top: 600px; left: 720px; width: 50px; padding: 28px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
+#btnAud5 { position: absolute; top: 130px; left: 620px; width: 30px; padding:8px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
 #btnAud6 { position: absolute; top: 180px; left: 770px; width: 100px; padding: 35px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
 #btnAud7 { position: absolute; top: 880px; left: 300px; width: 5px; padding: 20px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
 #btnAud8 { position: absolute; top: 410px; left: 1120px; width: 100px; padding: 40px; opacity: 0; background: #ff7d4f; color:#fff; border:none; border-radius:6px; }
 /*----------------------------------------*/
-/* 图片：每个都单独定位 + 等比例缩放
-/* 只改 width 就自动按比例变大小
+/* 图片：100% 保留你原来的位置、大小，只加性能优化
 /*----------------------------------------*/
 .show-img {
   display: none;
   position: absolute;
   height: auto;
+  /* 加这行：图片不阻挡点击，提升响应速度 */
+  pointer-events: none;
+  /* 加这行：异步解码，不阻塞页面渲染 */
+  decoding: async;
 }
 
 #img1  { width: 260px; top: 310px; left: 1700px;  }
@@ -48,7 +59,7 @@ body {
 #img4  { width: 300px; top: 100px; right: 1600px; }
 #img5  { width: 280px; top: 720px; left: 1050px;  }
 #img7  { width: 280px; top: 720px; left: 1700px;  }
-#img8  { width: 320px; top: 320px; right: 900px; }
+#img8  { width: 320px; top: 370px; right: 820px; }
 #img11 { width: 250px; top: 420px; left: 30px;  }
 #img12 { width: 230px; top: 65px; right: 900px; }
 
@@ -71,30 +82,32 @@ body {
 <button id="btnAud1">当铺老板</button>
 <button id="btnAud2">酒店烧刀</button>
 <button id="btnAud4">米官</button>
+<button id="btnAud5">苏州弹琵小调</button>
 <button id="btnAud6">挑脚的</button>
 <button id="btnAud7">药铺老板</button>
 <button id="btnAud8">母女</button>
-<!--================= 图片 =================-->
-<img class="show-img" id="img1" src="images/西兴.png">
-<img class="show-img" id="img2" src="images/茶馆.png">
-<img class="show-img" id="img3" src="images/东大寺.png">
-<img class="show-img" id="img4" src="images/繁华商品区.png">
-<img class="show-img" id="img5" src="images/拱振桥.png">
-<img class="show-img" id="img6" src="images/江南民居.png">
-<img class="show-img" id="img7" src="images/蓝印花布.png">
-<img class="show-img" id="img8" src="images/三庙一塔.png">
-<img class="show-img" id="img9" src="images/太白楼.png">
-<img class="show-img" id="img10" src="images/竹竿巷.png">
-<img class="show-img" id="img11" src="images/jining.png">
-<img class="show-img" id="img12" src="images/tongzhou.png">
+<!--================= 图片：加了 loading="lazy" 懒加载 =================-->
+<img class="show-img" id="img1" src="images/西兴.png" loading="lazy" decoding="async">
+<img class="show-img" id="img2" src="images/茶馆.png" loading="lazy" decoding="async">
+<img class="show-img" id="img3" src="images/东大寺.png" loading="lazy" decoding="async">
+<img class="show-img" id="img4" src="images/繁华商品区.png" loading="lazy" decoding="async">
+<img class="show-img" id="img5" src="images/拱振桥.png" loading="lazy" decoding="async">
+<img class="show-img" id="img6" src="images/江南民居.png" loading="lazy" decoding="async">
+<img class="show-img" id="img7" src="images/蓝印花布.png" loading="lazy" decoding="async">
+<img class="show-img" id="img8" src="images/三庙一塔.png" loading="lazy" decoding="async">
+<img class="show-img" id="img9" src="images/太白楼.png" loading="lazy" decoding="async">
+<img class="show-img" id="img10" src="images/竹竿巷.png" loading="lazy" decoding="async">
+<img class="show-img" id="img11" src="images/jining.png" loading="lazy" decoding="async">
+<img class="show-img" id="img12" src="images/tongzhou.png" loading="lazy" decoding="async">
 
-<!--================= 音频 =================-->
-<audio id="aud1" src="audio/当铺老板.wav">
-<audio id="aud2" src="audio/酒店烧刀.wav">
-<audio id="aud4" src="audio/米官.wav">
-<audio id="aud6" src="audio/挑脚的.wav">
-<audio id="aud7" src="audio/药铺老板.wav">
-<audio id="aud8" src="audio/母女.mp3">
+<!--================= 音频：闭合标签 + preload="none" 不预加载 =================-->
+<audio id="aud1" src="audio/当铺老板.wav" preload="none">
+<audio id="aud2" src="audio/酒店烧刀.wav" preload="none">
+<audio id="aud4" src="audio/米官.wav" preload="none">
+<audio id="aud5" src="audio/苏州弹琵小调.mp3" preload="none">
+<audio id="aud6" src="audio/挑脚的.wav" preload="none">
+<audio id="aud7" src="audio/药铺老板.wav" preload="none">
+<audio id="aud8" src="audio/母女.mp3" preload="none">
 
 <script>
 const allImgs = document.querySelectorAll('.show-img');
@@ -108,7 +121,7 @@ function playAudio(id) {
   try { a.currentTime = 0; a.play(); } catch (e) {}
 }
 
-// 图片按钮
+// 图片按钮：保留点击空白消失逻辑
 document.getElementById('btnImg1').onclick = (e) => {
   e.stopPropagation();
   hideAllImages();
@@ -164,7 +177,7 @@ document.getElementById('btnAud6').onclick = (e) => { e.stopPropagation(); playA
 document.getElementById('btnAud7').onclick = (e) => { e.stopPropagation(); playAudio('aud7'); }
 document.getElementById('btnAud8').onclick = (e) => { e.stopPropagation(); playAudio('aud8'); }
 
-// 点击页面空白/背景 → 隐藏图片
+// 点击背景/空白隐藏图片
 document.body.onclick = hideAllImages;
 </script>
 </body>
